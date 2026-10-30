@@ -1,0 +1,13 @@
+name: build
+on: [push, workflow_dispatch]
+jobs:
+  win:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ilammy/msvc-dev-cmd@v1
+      - run: cl /O2 /EHsc /DNDEBUG cs2_test_kit_silent.cpp user32.lib /Fe:cs2_test_kit_silent.exe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cs2_test_kit_silent
+          path: cs2_test_kit_silent.exe
